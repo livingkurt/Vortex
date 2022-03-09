@@ -1,5 +1,5 @@
 {
-	"name": "Work_Break_Timer",
+	"name": "vortexctrl",
 	"version": "0.0.0",
 	"scripts": {
 		"build": "./node_modules/.bin/ts-node build.ts",
@@ -14,13 +14,9 @@
 		"test:no-reloading": "./node_modules/.bin/ts-node -r tsconfig-paths/register ./spec"
 	},
 	"nodemonConfig": {
-		"watch": [
-			"src"
-		],
+		"watch": [ "src" ],
 		"ext": "ts, html",
-		"ignore": [
-			"src/public"
-		],
+		"ignore": [ "src/public" ],
 		"exec": "./node_modules/.bin/ts-node -r tsconfig-paths/register ./src"
 	},
 	"_moduleAliases": {
@@ -33,9 +29,7 @@
 	},
 	"eslintConfig": {
 		"parser": "@typescript-eslint/parser",
-		"plugins": [
-			"@typescript-eslint"
-		],
+		"plugins": [ "@typescript-eslint" ],
 		"extends": [
 			"eslint:recommended",
 			"plugin:@typescript-eslint/recommended",
@@ -61,10 +55,7 @@
 			"@typescript-eslint/no-unsafe-assignment": 0
 		}
 	},
-	"eslintIgnore": [
-		"src/public/",
-		"build.ts"
-	],
+	"eslintIgnore": [ "src/public/", "build.ts" ],
 	"dependencies": {
 		"command-line-args": "^5.2.1",
 		"concurrently": "^7.0.0",
