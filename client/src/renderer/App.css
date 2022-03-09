@@ -1,0 +1,222 @@
+/*
+ * @NOTE: Prepend a `~` to css file paths that are in your node_modules
+ *        See https://github.com/webpack-contrib/sass-loader#imports
+ */
+body {
+	position: relative;
+	color: white;
+	height: 100vh;
+	background: linear-gradient(200.96deg, #fedc2a -29.09%, #dd5789 51.77%, #7a2c9e 129.35%);
+	font-family: sans-serif;
+	overflow-y: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+button {
+	background-color: white;
+	padding: 10px 20px;
+	border-radius: 10px;
+	border: none;
+	appearance: none;
+	font-size: 1.3rem;
+	box-shadow: 0px 8px 28px -6px rgba(24, 39, 75, 0.12), 0px 18px 88px -4px rgba(24, 39, 75, 0.14);
+	transition: all ease-in 0.1s;
+	cursor: pointer;
+	opacity: 0.9;
+}
+
+button:hover {
+	transform: scale(1.05);
+	opacity: 1;
+}
+
+li {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	height: fit-content;
+	width: fit-content;
+	margin: 10px;
+}
+
+a:hover {
+	opacity: 1;
+	text-decoration: none;
+}
+
+.Hello {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 20px 0;
+}
+
+/* latin */
+/* @font-face {
+	font-family: 'Cairo';
+	font-style: normal;
+	font-weight: 400;
+	src: url("./assets/fonts/Cairo.woff2") format('woff2');
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215,
+		U+E0FF, U+EFFD, U+F000;
+} */
+
+body,
+html {
+	margin: 0px;
+	padding: 0px;
+	background-color: #222222;
+	/* font-family: 'Cairo', serif; */
+	color: #dddddd;
+}
+
+input,
+select,
+button {
+	background-color: #222222;
+	color: #dddddd;
+	border: 1px #888888 solid;
+}
+
+#main {
+	height: 720px;
+	width: 1280px;
+}
+
+#header {
+	font-weight: bold;
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 120px;
+	width: 1280px;
+	text-align: center;
+}
+
+#footer {
+	position: fixed;
+	height: 20px;
+	width: 1280px;
+	bottom: 0;
+	left: 0;
+}
+
+#editor {
+	position: fixed;
+	height: 580px;
+	width: 920px;
+	bottom: 20px;
+	left: 0;
+}
+
+#bundles {
+	position: fixed;
+	height: 580px;
+	width: 170px;
+	bottom: 20px;
+	right: 190px;
+}
+
+::-webkit-scrollbar {
+	display: none;
+}
+
+#bundle0 {
+	position: absolute;
+	top: 20px;
+	height: 245px;
+	width: 168px;
+	border: 2px solid black;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+#bundle1 {
+	position: absolute;
+	top: 285px;
+	height: 245px;
+	width: 168px;
+	border: 2px solid black;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+#bundle-controls {
+	position: absolute;
+	bottom: 0px;
+	height: 50px;
+	width: 100%;
+}
+
+#modes {
+	position: fixed;
+	height: 580px;
+	width: 190px;
+	bottom: 20px;
+	right: 0;
+}
+
+#mode-list {
+	position: absolute;
+	top: 20px;
+	height: 510px;
+	width: 186px;
+	border: 2px solid black;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+#mode-controls {
+	position: absolute;
+	bottom: 0px;
+	height: 50px;
+	width: 100%;
+}
+
+.range-0 {
+	background: #ff4444;
+}
+.range-01 {
+	background: -webkit-linear-gradient(left, #ff4444 0%, #ff44ff 50%, #4444ff 100%);
+}
+.range-1 {
+	background: #4444ff;
+}
+.range-12 {
+	background: -webkit-linear-gradient(left, #4444ff 0%, #44ffff 50%, #44ff44 100%);
+}
+.range-2 {
+	background: #44ff44;
+}
+
+.trigger-0 {
+	background: #ff4444;
+}
+.trigger-01 {
+	background: #ff44ff;
+}
+.trigger-1 {
+	background: #4444ff;
+}
+
+.color {
+	width: 25px;
+	height: 25px;
+	margin: 5px 5px 0px 5px;
+	padding: 0px;
+	background: #000;
+}
+
+.mode {
+	min-height: 20px;
+	min-width: 160px;
+	padding-top: 0px;
+	margin: 5px;
+	text-align: center;
+	background: #555555;
+	color: #dddddd;
+}
