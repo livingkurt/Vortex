@@ -4,7 +4,7 @@ const Header = () => {
 	return (
 		<header id="header">
 			<h1 id="header-title" style={{ margin: '20px', padding: '0px', fontSize: '60px' }}>
-				Vectr (0.3.4)
+				VortexCTRL (0.0.1)
 			</h1>
 		</header>
 	);
