@@ -6,24 +6,33 @@ import {
 	FlashingPatternsEditor,
 	Primer
 } from './EditorComponents';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { listPorts } from '../redux/actions/portActions';
+import { listPorts, connectToPort, disconnectToPort } from '../redux/actions/portActions';
 
 export default function Editor({}) {
 	const dispatch = useDispatch();
 
 	const portList = useSelector((state) => state.portList);
 	const { ports, loading, error } = portList;
-	console.log({ ports: ports.ports });
+
+	const portConnect = useSelector((state) => state.portConnect);
+	const { port, loading: portLoading, error: portError } = portConnect;
+	console.log({ port });
+
+	const [ portChoice, setPortChoice ] = useState();
 
 	useEffect(() => {
-		get_ports();
+		getPorts();
 		return () => {};
 	}, []);
 
-	const get_ports = () => {
+	const getPorts = () => {
 		dispatch(listPorts());
+	};
+
+	const connectPort = (connect) => {
+		dispatch(connectToPort(portChoice, connect));
 	};
 
 	return (
@@ -33,22 +42,38 @@ export default function Editor({}) {
 					margin: '5px'
 				}}
 			>
-				<select>
-					{ports.ports &&
-						ports.ports.length > 0 &&
-						ports.ports.map((port) => <option value={0}>{port.path}</option>)}
+				<select onChange={(e) => setPortChoice(e.target.value)}>
+					{ports &&
+						ports.map((port, index) => (
+							<option key={index} value={port.path}>
+								{port.path}
+							</option>
+						))}
 				</select>
-				<input
-					type="button"
-					defaultValue="Connect"
-					style={{
-						width: '120px'
-					}}
-				/>
+				{port && Object.keys(port).length > 0 ? (
+					<input
+						type="button"
+						onClick={() => connectPort(false, port)}
+						defaultValue="Disconnect"
+						style={{
+							width: '120px'
+						}}
+					/>
+				) : (
+					<input
+						type="button"
+						onClick={() => connectPort(true)}
+						defaultValue="Connect"
+						style={{
+							width: '120px'
+						}}
+					/>
+				)}
+
 				<input
 					type="button"
 					defaultValue="Refresh Ports"
-					onClick={get_ports}
+					onClick={() => getPorts()}
 					style={{
 						width: '120px'
 					}}

@@ -77,22 +77,36 @@ app.use(express.static(staticDir));
 app.get('/api/get_serial_ports', (_: Request, res: Response) => {
 	SerialPort.list().then((ports) => {
 		console.log({ ports });
-		res.json({ ports });
-		// if (err) {
-		// 	document.getElementById('error').textContent = err.message;
-		// 	return;
-		// } else {
-		// 	document.getElementById('error').textContent = '';
-		// }
-		// console.log('ports', ports);
-
-		// if (ports.length === 0) {
-		// 	document.getElementById('error').textContent = 'No ports discovered';
-		// }
-
-		// tableHTML = tableify(ports);
-		// document.getElementById('ports').innerHTML = tableHTML;
+		res.json(ports);
 	});
+});
+
+app.post('/api/connect', (_: Request, res: Response) => {
+	const { path } = _.body;
+	console.log({ path });
+	const port = new SerialPort({ path: path, baudRate: 115200 });
+	console.log({ port });
+	port.write('main screen turn on', function(err) {
+		if (err) {
+			return console.log('Error on write: ', err.message);
+		}
+		console.log('message written');
+	});
+
+	// Open errors will be emitted as an error event
+	port.on('error', function(err) {
+		console.log('Error: ', err.message);
+	});
+	res.json(port);
+});
+
+app.post('/api/disconnect', (_: Request, res: Response) => {
+	const { port } = _.body;
+	console.log({ port });
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-call
+	port.close();
+
+	res.json({});
 });
 
 // Serve index.html file

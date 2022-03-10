@@ -3,7 +3,7 @@ import { DefaultModes } from '../utils/default_modes';
 import { Patterns } from '../utils/patterns';
 
 import thunk from 'redux-thunk';
-import { portListReducer } from './reducers/portReducers';
+import { portListReducer, portConnectReducer, portDisconnectReducer } from './reducers/portReducers';
 
 const initialState: object = {
 	DefaultModes: DefaultModes.getModes(),
@@ -53,7 +53,9 @@ const initialState: object = {
 };
 
 const reducer = combineReducers({
-	portList: portListReducer
+	portList: portListReducer,
+	portConnect: portConnectReducer,
+	portDisconnect: portDisconnectReducer
 });
 
 declare global {

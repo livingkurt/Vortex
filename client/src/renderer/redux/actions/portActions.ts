@@ -1,7 +1,13 @@
 import {
 	PORT_LIST_REQUEST,
 	PORT_LIST_SUCCESS,
-	PORT_LIST_FAIL
+	PORT_LIST_FAIL,
+	PORT_CONNECT_REQUEST,
+	PORT_CONNECT_SUCCESS,
+	PORT_CONNECT_FAIL,
+	PORT_DISCONNECT_REQUEST,
+	PORT_DISCONNECT_SUCCESS,
+	PORT_DISCONNECT_FAIL
 	// PORT_DETAILS_REQUEST,
 	// PORT_DETAILS_SUCCESS,
 	// PORT_DETAILS_FAIL,
@@ -29,6 +35,40 @@ export const listPorts = (query: any) => async (dispatch: (arg0: { type: string;
 		dispatch({ type: PORT_LIST_FAIL, payload: error });
 	}
 };
+
+export const connectToPort = (path: string, connect: boolean, port: any) => async (
+	dispatch: (arg0: { type: string; payload?: any }) => void
+) => {
+	try {
+		dispatch({ type: PORT_CONNECT_REQUEST });
+		if (connect) {
+			const { data } = await axios.post(`/api/connect`, { path });
+			console.log({ data });
+			dispatch({ type: PORT_CONNECT_SUCCESS, payload: data });
+		} else {
+			// const { data } = await axios.post(`/api/disconnect`, { port });
+			// console.log({ data });
+			dispatch({ type: PORT_CONNECT_SUCCESS, payload: {} });
+		}
+	} catch (error) {
+		console.log({ error });
+		dispatch({ type: PORT_CONNECT_FAIL, payload: error });
+	}
+};
+
+// export const disconnectToPort = (path: string, query: any) => async (
+// 	dispatch: (arg0: { type: string; payload?: any }) => void
+// ) => {
+// 	try {
+// 		dispatch({ type: PORT_CONNECT_REQUEST });
+// 		const { data } = await axios.post(`/api/disconnect`, { path });
+// 		console.log({ data });
+// 		dispatch({ type: PORT_CONNECT_SUCCESS, payload: data });
+// 	} catch (error) {
+// 		console.log({ error });
+// 		dispatch({ type: PORT_CONNECT_FAIL, payload: error });
+// 	}
+// };
 
 // export const listMyPorts = () => async (
 // 	dispatch: (arg0: { type: string; payload?: any }) => void,

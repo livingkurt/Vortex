@@ -1,7 +1,13 @@
 import {
 	PORT_LIST_REQUEST,
 	PORT_LIST_SUCCESS,
-	PORT_LIST_FAIL
+	PORT_LIST_FAIL,
+	PORT_CONNECT_REQUEST,
+	PORT_CONNECT_SUCCESS,
+	PORT_CONNECT_FAIL,
+	PORT_DISCONNECT_REQUEST,
+	PORT_DISCONNECT_SUCCESS,
+	PORT_DISCONNECT_FAIL
 	// PORT_DETAILS_REQUEST,
 	// PORT_DETAILS_SUCCESS,
 	// PORT_DETAILS_FAIL,
@@ -23,6 +29,33 @@ export const portListReducer = (state = { ports: [] }, action: { type: any; payl
 		case PORT_LIST_SUCCESS:
 			return { loading: false, ports: action.payload, message: 'Ports Found' };
 		case PORT_LIST_FAIL:
+			return { loading: false, error: action.payload.error, message: action.payload.message };
+		default:
+			return state;
+	}
+};
+
+export const portConnectReducer = (state = { port: {} }, action: { type: any; payload: any }) => {
+	console.log({ payload: action.payload });
+	switch (action.type) {
+		case PORT_CONNECT_REQUEST:
+			return { loading: true, port: {} };
+		case PORT_CONNECT_SUCCESS:
+			return { loading: false, port: action.payload, message: 'Port Connected' };
+		case PORT_CONNECT_FAIL:
+			return { loading: false, error: action.payload.error, message: action.payload.message };
+		default:
+			return state;
+	}
+};
+
+export const portDisconnectReducer = (state = { port: {} }, action: { type: any; payload: any }) => {
+	switch (action.type) {
+		case PORT_DISCONNECT_REQUEST:
+			return { loading: true, port: {} };
+		case PORT_DISCONNECT_SUCCESS:
+			return { loading: false, port: action.payload, message: 'Port Disonnected' };
+		case PORT_DISCONNECT_FAIL:
 			return { loading: false, error: action.payload.error, message: action.payload.message };
 		default:
 			return state;
