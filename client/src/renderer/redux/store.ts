@@ -3,7 +3,7 @@ import { DefaultModes } from '../utils/default_modes';
 import { Patterns } from '../utils/patterns';
 
 import thunk from 'redux-thunk';
-// import { productListReducer, productDetailsReducer } from './reducers/productReducers';
+import { portListReducer } from './reducers/portReducers';
 
 const initialState: object = {
 	DefaultModes: DefaultModes.getModes(),
@@ -52,12 +52,9 @@ const initialState: object = {
 	}
 };
 
-const reducer = combineReducers(
-	{
-		// productList: productListReducer,
-		// productDetails: productDetailsReducer
-	}
-);
+const reducer = combineReducers({
+	portList: portListReducer
+});
 
 declare global {
 	interface Window {

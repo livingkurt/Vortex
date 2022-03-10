@@ -6,8 +6,26 @@ import {
 	FlashingPatternsEditor,
 	Primer
 } from './EditorComponents';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { listPorts } from '../redux/actions/portActions';
+
 export default function Editor({}) {
+	const dispatch = useDispatch();
+
+	const portList = useSelector((state) => state.portList);
+	const { ports, loading, error } = portList;
+	console.log({ ports: ports.ports });
+
+	useEffect(() => {
+		get_ports();
+		return () => {};
+	}, []);
+
+	const get_ports = () => {
+		dispatch(listPorts());
+	};
+
 	return (
 		<div id="editor">
 			<div
@@ -16,12 +34,9 @@ export default function Editor({}) {
 				}}
 			>
 				<select>
-					<option value={0}>/dev/cu.usbmodem1433401</option>
-					<option value={1}>/dev/tty.usbmodem1433401</option>
-					<option value={2}>/dev/cu.usbserial-14630</option>
-					<option value={3}>/dev/tty.usbserial-14630</option>
-					<option value={4}>/dev/cu.Bluetooth-Incoming-Port</option>
-					<option value={5}>/dev/tty.Bluetooth-Incoming-Port</option>
+					{ports.ports &&
+						ports.ports.length > 0 &&
+						ports.ports.map((port) => <option value={0}>{port.path}</option>)}
 				</select>
 				<input
 					type="button"
@@ -33,6 +48,7 @@ export default function Editor({}) {
 				<input
 					type="button"
 					defaultValue="Refresh Ports"
+					onClick={get_ports}
 					style={{
 						width: '120px'
 					}}
