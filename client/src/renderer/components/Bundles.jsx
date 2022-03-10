@@ -4,8 +4,8 @@ export default function Bundles({}) {
 		<div id="bundles">
 			<span
 				style={{
-					position: 'absolute',
-					top: '0px',
+					// position: 'absolute',
+					// top: '0px',
 					fontWeight: 'bold',
 					marginLeft: '15px'
 				}}
@@ -40,8 +40,8 @@ export default function Bundles({}) {
 			</div>
 			<span
 				style={{
-					position: 'absolute',
-					top: '265px',
+					// position: 'absolute',
+					// top: '265px',
 					fontWeight: 'bold',
 					marginLeft: '15px'
 				}}

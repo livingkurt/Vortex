@@ -4,8 +4,8 @@ export default function Modes({}) {
 		<div id="modes">
 			<span
 				style={{
-					position: 'absolute',
-					top: '0px',
+					// position: 'absolute',
+					// top: '0px',
 					fontWeight: 'bold',
 					marginLeft: '15px'
 				}}

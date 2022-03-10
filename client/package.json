@@ -16,22 +16,37 @@
 		"prepare": "husky install"
 	},
 	"lint-staged": {
-		"*.{js,jsx,ts,tsx}": [ "cross-env NODE_ENV=development eslint --cache" ],
-		"*.json,.{eslintrc,prettierrc}": [ "prettier --ignore-path .eslintignore --parser json --write" ],
-		"*.{css,scss}": [ "prettier --ignore-path .eslintignore --single-quote --write" ],
-		"*.{html,md,yml}": [ "prettier --ignore-path .eslintignore --single-quote --write" ]
+		"*.{js,jsx,ts,tsx}": [
+			"cross-env NODE_ENV=development eslint --cache"
+		],
+		"*.json,.{eslintrc,prettierrc}": [
+			"prettier --ignore-path .eslintignore --parser json --write"
+		],
+		"*.{css,scss}": [
+			"prettier --ignore-path .eslintignore --single-quote --write"
+		],
+		"*.{html,md,yml}": [
+			"prettier --ignore-path .eslintignore --single-quote --write"
+		]
 	},
 	"build": {
 		"productName": "VortexCTRL",
 		"appId": "org.erb.VortexCTRL",
 		"asar": true,
 		"asarUnpack": "**\\*.{node,dll}",
-		"files": [ "dist", "node_modules", "package.json" ],
+		"files": [
+			"dist",
+			"node_modules",
+			"package.json"
+		],
 		"afterSign": ".erb/scripts/notarize.js",
 		"mac": {
 			"target": {
 				"target": "default",
-				"arch": [ "arm64", "x64" ]
+				"arch": [
+					"arm64",
+					"x64"
+				]
 			},
 			"type": "distribution",
 			"hardenedRuntime": true,
@@ -54,10 +69,14 @@
 			]
 		},
 		"win": {
-			"target": [ "nsis" ]
+			"target": [
+				"nsis"
+			]
 		},
 		"linux": {
-			"target": [ "AppImage" ],
+			"target": [
+				"AppImage"
+			],
 			"category": "Development"
 		},
 		"directories": {
@@ -65,7 +84,9 @@
 			"buildResources": "assets",
 			"output": "release/build"
 		},
-		"extraResources": [ "./assets/**" ],
+		"extraResources": [
+			"./assets/**"
+		],
 		"publish": {
 			"provider": "github",
 			"owner": "electron-react-boilerplate",
@@ -97,7 +118,17 @@
 	"bugs": {
 		"url": "https://github.com/electron-react-boilerplate/electron-react-boilerplate/issues"
 	},
-	"keywords": [ "electron", "boilerplate", "react", "typescript", "ts", "sass", "webpack", "hot", "reload" ],
+	"keywords": [
+		"electron",
+		"boilerplate",
+		"react",
+		"typescript",
+		"ts",
+		"sass",
+		"webpack",
+		"hot",
+		"reload"
+	],
 	"homepage": "https://github.com/electron-react-boilerplate/electron-react-boilerplate#readme",
 	"jest": {
 		"testURL": "http://localhost/",
@@ -109,10 +140,23 @@
 			"\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/.erb/mocks/fileMock.js",
 			"\\.(css|less|sass|scss)$": "identity-obj-proxy"
 		},
-		"moduleFileExtensions": [ "js", "jsx", "ts", "tsx", "json" ],
-		"moduleDirectories": [ "node_modules", "release/app/node_modules" ],
-		"testPathIgnorePatterns": [ "release/app/dist" ],
-		"setupFiles": [ "./.erb/scripts/check-build-exists.ts" ]
+		"moduleFileExtensions": [
+			"js",
+			"jsx",
+			"ts",
+			"tsx",
+			"json"
+		],
+		"moduleDirectories": [
+			"node_modules",
+			"release/app/node_modules"
+		],
+		"testPathIgnorePatterns": [
+			"release/app/dist"
+		],
+		"setupFiles": [
+			"./.erb/scripts/check-build-exists.ts"
+		]
 	},
 	"devDependencies": {
 		"@pmmmwh/react-refresh-webpack-plugin": "0.5.4",
@@ -189,7 +233,10 @@
 		"node-sass": "^7.0.1",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",
-		"react-router-dom": "^6.2.1"
+		"react-redux": "^7.2.6",
+		"react-router-dom": "^6.2.1",
+		"redux": "^4.1.2",
+		"redux-thunk": "^2.4.1"
 	},
 	"devEngines": {
 		"node": ">=14.x",
@@ -202,7 +249,10 @@
 	"prettier": {
 		"overrides": [
 			{
-				"files": [ ".prettierrc", ".eslintrc" ],
+				"files": [
+					".prettierrc",
+					".eslintrc"
+				],
 				"options": {
 					"parser": "json"
 				}

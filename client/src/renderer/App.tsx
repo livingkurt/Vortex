@@ -1,13 +1,13 @@
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import { Bundles, Dialog, Footer, Header, Editor, Modes } from './components';
-// import './scss/style.scss';
+import './scss/style.scss';
 
 const Hello = () => {
 	return (
-		<div id="main">
+		<div id="main" className="p-20px">
 			<Header />
-			<div>
+			<div className="jc-b">
 				<Editor />
 				<Bundles />
 				<Modes />
