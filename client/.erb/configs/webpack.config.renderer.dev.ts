@@ -13,101 +13,96 @@ import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 // When an ESLint server is running, we can't set the NODE_ENV so we'll check if it's
 // at the dev webpack config is not accidentally run in a production environment
 if (process.env.NODE_ENV === 'production') {
-  checkNodeEnv('development');
+	checkNodeEnv('development');
 }
 
 const port = process.env.PORT || 1212;
 const manifest = path.resolve(webpackPaths.dllPath, 'renderer.json');
-const requiredByDLLConfig = module.parent!.filename.includes(
-  'webpack.config.renderer.dev.dll'
-);
+const requiredByDLLConfig = module.parent!.filename.includes('webpack.config.renderer.dev.dll');
 
 /**
  * Warn if the DLL is not built
  */
-if (
-  !requiredByDLLConfig &&
-  !(fs.existsSync(webpackPaths.dllPath) && fs.existsSync(manifest))
-) {
-  console.log(
-    chalk.black.bgYellow.bold(
-      'The DLL files are missing. Sit back while we build them for you with "npm run build-dll"'
-    )
-  );
-  execSync('npm run postinstall');
+if (!requiredByDLLConfig && !(fs.existsSync(webpackPaths.dllPath) && fs.existsSync(manifest))) {
+	console.log(
+		chalk.black.bgYellow.bold(
+			'The DLL files are missing. Sit back while we build them for you with "npm run build-dll"'
+		)
+	);
+	execSync('npm run postinstall');
 }
 
 const configuration: webpack.Configuration = {
-  devtool: 'inline-source-map',
+	devtool: 'inline-source-map',
 
-  mode: 'development',
+	mode: 'development',
 
-  target: ['web', 'electron-renderer'],
+	target: [ 'web', 'electron-renderer' ],
 
-  entry: [
-    `webpack-dev-server/client?http://localhost:${port}/dist`,
-    'webpack/hot/only-dev-server',
-    path.join(webpackPaths.srcRendererPath, 'index.tsx'),
-  ],
+	entry: [
+		`webpack-dev-server/client?http://localhost:${port}/dist`,
+		'webpack/hot/only-dev-server',
+		path.join(webpackPaths.srcRendererPath, 'index.tsx')
+	],
 
-  output: {
-    path: webpackPaths.distRendererPath,
-    publicPath: '/',
-    filename: 'renderer.dev.js',
-    library: {
-      type: 'umd',
-    },
-  },
+	output: {
+		path: webpackPaths.distRendererPath,
+		publicPath: '/',
+		filename: 'renderer.dev.js',
+		library: {
+			type: 'umd'
+		}
+	},
 
-  module: {
-    rules: [
-      {
-        test: /\.s?css$/,
-        use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              modules: true,
-              sourceMap: true,
-              importLoaders: 1,
-            },
-          },
-          'sass-loader',
-        ],
-        include: /\.module\.s?(c|a)ss$/,
-      },
-      {
-        test: /\.s?css$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
-        exclude: /\.module\.s?(c|a)ss$/,
-      },
-      // Fonts
-      {
-        test: /\.(woff|woff2|eot|ttf|otf)$/i,
-        type: 'asset/resource',
-      },
-      // Images
-      {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: 'asset/resource',
-      },
-    ],
-  },
-  plugins: [
-    ...(requiredByDLLConfig
-      ? []
-      : [
-          new webpack.DllReferencePlugin({
-            context: webpackPaths.dllPath,
-            manifest: require(manifest),
-            sourceType: 'var',
-          }),
-        ]),
+	module: {
+		rules: [
+			{
+				test: /\.s?css$/,
+				use: [
+					'style-loader',
+					{
+						loader: 'css-loader',
+						options: {
+							modules: true,
+							sourceMap: true,
+							importLoaders: 1
+						}
+					},
+					'sass-loader'
+				],
+				include: /\.module\.s?(c|a)ss$/
+			},
+			{
+				test: /\.s?css$/,
+				use: [ 'style-loader', 'css-loader', 'sass-loader' ],
+				exclude: /\.module\.s?(c|a)ss$/
+			},
+			// Fonts
+			{
+				test: /\.(woff|woff2|eot|ttf|otf)$/i,
+				type: 'asset/resource'
+			},
+			// Images
+			{
+				test: /\.(png|svg|jpg|jpeg|gif)$/i,
+				type: 'asset/resource'
+			}
+		]
+	},
+	plugins: [
+		...(requiredByDLLConfig
+			? []
+			: [
+					new webpack.DllReferencePlugin({
+						context: webpackPaths.dllPath,
+						manifest: require(manifest),
+						sourceType: 'var'
+					})
+				]),
 
-    new webpack.NoEmitOnErrorsPlugin(),
+		new webpack.NoEmitOnErrorsPlugin(),
 
-    /**
+		/**
      * Create global constants which can be configured at compile time.
      *
      * Useful for allowing different behaviour between development builds and
@@ -119,59 +114,84 @@ const configuration: webpack.Configuration = {
      * By default, use 'development' as NODE_ENV. This can be overriden with
      * 'staging', for example, by changing the ENV variables in the npm scripts
      */
-    new webpack.EnvironmentPlugin({
-      NODE_ENV: 'development',
-    }),
+		new webpack.EnvironmentPlugin({
+			NODE_ENV: 'development'
+		}),
 
-    new webpack.LoaderOptionsPlugin({
-      debug: true,
-    }),
+		new webpack.LoaderOptionsPlugin({
+			debug: true
+		}),
 
-    new ReactRefreshWebpackPlugin(),
+		new ReactRefreshWebpackPlugin(),
 
-    new HtmlWebpackPlugin({
-      filename: path.join('index.html'),
-      template: path.join(webpackPaths.srcRendererPath, 'index.ejs'),
-      minify: {
-        collapseWhitespace: true,
-        removeAttributeQuotes: true,
-        removeComments: true,
-      },
-      isBrowser: false,
-      env: process.env.NODE_ENV,
-      isDevelopment: process.env.NODE_ENV !== 'production',
-      nodeModules: webpackPaths.appNodeModulesPath,
-    }),
-  ],
+		new HtmlWebpackPlugin({
+			filename: path.join('index.html'),
+			template: path.join(webpackPaths.srcRendererPath, 'index.ejs'),
+			minify: {
+				collapseWhitespace: true,
+				removeAttributeQuotes: true,
+				removeComments: true
+			},
+			isBrowser: false,
+			env: process.env.NODE_ENV,
+			isDevelopment: process.env.NODE_ENV !== 'production',
+			nodeModules: webpackPaths.appNodeModulesPath
+		})
+	],
 
-  node: {
-    __dirname: false,
-    __filename: false,
-  },
+	node: {
+		__dirname: false,
+		__filename: false
+	},
 
-  // @ts-ignore
-  devServer: {
-    port,
-    compress: true,
-    hot: true,
-    headers: { 'Access-Control-Allow-Origin': '*' },
-    static: {
-      publicPath: '/',
-    },
-    historyApiFallback: {
-      verbose: true,
-    },
-    onBeforeSetupMiddleware() {
-      console.log('Starting Main Process...');
-      spawn('npm', ['run', 'start:main'], {
-        shell: true,
-        env: process.env,
-        stdio: 'inherit',
-      })
-        .on('close', (code: number) => process.exit(code!))
-        .on('error', (spawnError) => console.error(spawnError));
-    },
-  },
+	// @ts-ignore
+	devServer: {
+		port,
+		compress: true,
+		hot: true,
+		headers: { 'Access-Control-Allow-Origin': '*' },
+		// static: {
+		// 	publicPath: '/'
+		// },
+		static: {
+			directory: path.join(__dirname, 'assets')
+		},
+		allowedHosts: 'all',
+		proxy: {
+			'/api/*': {
+				target: 'http://localhost:5000',
+				secure: false,
+				rewrite: function(req, options) {
+					//you can handle rewrite here if you need to
+				}
+			}
+		},
+		historyApiFallback: {
+			verbose: true,
+			disableDotRule: true,
+			rewrites: [
+				{
+					from: '/wps',
+					to: (context) => context.parsedUrl.pathname
+				},
+				{
+					from: /.js/,
+					to: (context) => context.parsedUrl.pathname
+				}
+			]
+		},
+
+		onBeforeSetupMiddleware() {
+			console.log('Starting Main Process...');
+			spawn('npm', [ 'run', 'start:main' ], {
+				shell: true,
+				env: process.env,
+				stdio: 'inherit'
+			})
+				.on('close', (code: number) => process.exit(code!))
+				.on('error', (spawnError) => console.error(spawnError));
+		}
+	}
 };
 
 export default merge(baseConfig, configuration);

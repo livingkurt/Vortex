@@ -15,6 +15,9 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 dotenv.config();
 
+import { SerialPort } from 'serialport';
+import tableify from 'tableify';
+
 /***********************************************************************************
  *                                  Database
  **********************************************************************************/
@@ -70,6 +73,27 @@ app.set('views', viewsDir);
 // Set static dir
 const staticDir = path.join(__dirname, 'public');
 app.use(express.static(staticDir));
+
+app.get('/api/get_serial_ports', (_: Request, res: Response) => {
+	SerialPort.list().then((ports) => {
+		console.log({ ports });
+		res.json({ ports });
+		// if (err) {
+		// 	document.getElementById('error').textContent = err.message;
+		// 	return;
+		// } else {
+		// 	document.getElementById('error').textContent = '';
+		// }
+		// console.log('ports', ports);
+
+		// if (ports.length === 0) {
+		// 	document.getElementById('error').textContent = 'No ports discovered';
+		// }
+
+		// tableHTML = tableify(ports);
+		// document.getElementById('ports').innerHTML = tableHTML;
+	});
+});
 
 // Serve index.html file
 app.get('*', (_: Request, res: Response) => {

@@ -168,6 +168,7 @@
 		"@types/react": "^17.0.38",
 		"@types/react-dom": "^17.0.11",
 		"@types/react-test-renderer": "^17.0.1",
+		"@types/tableify": "^1.1.1",
 		"@types/terser-webpack-plugin": "^5.0.4",
 		"@types/webpack-env": "^1.16.3",
 		"@typescript-eslint/eslint-plugin": "^5.8.1",
@@ -226,17 +227,20 @@
 		"webpack-merge": "^5.8.0"
 	},
 	"dependencies": {
+		"axios": "^0.26.1",
 		"electron-debug": "^3.2.0",
 		"electron-log": "^4.4.4",
 		"electron-updater": "^4.6.5",
 		"history": "^5.2.0",
+		"http-proxy-middleware": "^2.0.3",
 		"node-sass": "^7.0.1",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",
 		"react-redux": "^7.2.6",
 		"react-router-dom": "^6.2.1",
 		"redux": "^4.1.2",
-		"redux-thunk": "^2.4.1"
+		"redux-thunk": "^2.4.1",
+		"serialport": "^10.4.0"
 	},
 	"devEngines": {
 		"node": ">=14.x",
